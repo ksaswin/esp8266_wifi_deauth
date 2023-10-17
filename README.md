@@ -2,8 +2,11 @@
 
 Scan for WiFi devices / access points and block connections.
 
+## Circuit Diagram
 
+Circuit with push button to scan for networks.
 
+<img src='https://raw.githubusercontent.com/ksaswin/esp8266_wifi_deauth/master/Images/NodeMCU_push-button_circuit.png' alt='Circuit diagram image' width='50%' />
 
 ### Disclaimer
 
