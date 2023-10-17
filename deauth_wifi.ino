@@ -3,7 +3,7 @@
 #define BAUD_RATE 9600
 #define WIFI_LED 2
 #define SCROLLER_BTN D2
-#define CONFIRM_BTN D1
+#define CONFIRM_BTN D4
 
 
 ModeConfigurator mode_config;
