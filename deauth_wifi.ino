@@ -2,6 +2,7 @@
 
 #define BAUD_RATE 9600
 #define WIFI_LED 2
+#define PUSH_BTN D2
 
 Sniffer ap_sniffer(WIFI_LED);
 
@@ -9,13 +10,18 @@ void setup() {
   Serial.begin(BAUD_RATE);
 
   pinMode(WIFI_LED, OUTPUT);
+  digitalWrite(WIFI_LED, HIGH);
 
-  ap_sniffer.station_mode_wifi_setup();
+  pinMode(PUSH_BTN, INPUT);
 }
 
 void loop() {
-  ap_sniffer.sniff_access_points();
+  int button = digitalRead(PUSH_BTN);
 
-  Serial.println("\n");
+  if (button == 1) {
+    ap_sniffer.sniff_access_points();
+    Serial.println("\n");
+  }
+
   delay(100);
 }
