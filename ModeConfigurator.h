@@ -31,8 +31,11 @@ class ModeConfigurator {
           ap_sniffer.list_access_points();
           Serial.println("\n");
           break;
-        case 3:
+        case 2:
           Serial.println("Deauth attack not implemented yet.");
+          break;
+        default:
+          Serial.println("Invalid command");
       }
     }
 };
