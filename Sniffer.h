@@ -57,9 +57,14 @@ class Sniffer {
 
       String encryptionName = get_encryption_type_name(encryptionType);
 
-      Serial.printf("%s\n  Channel: %d\n  Signal Strength: %d dBm\n", ssid.c_str(), channel, RSSI);
+      // Source: https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/scan-class.html#encryptiontype
+      Serial.printf("%s\n  MAC: %s\n  Channel: %d\n  Signal Strength: %d dBm\n", ssid.c_str(), WiFi.BSSIDstr(i).c_str(), channel, RSSI);
       Serial.printf("  Encryption Type: %s\n  Network Hidden status: %s\n\n", encryptionName.c_str(), isHidden ? "Hidden network" : "Not hidden network");
     }
+  }
+
+  void check_for_new_network() {
+    Serial.println("Looking for a new network");
   }
 
   public:
@@ -83,16 +88,22 @@ class Sniffer {
       delay(100);
 
       digitalWrite(WIFI_LED, HIGH);
-      Serial.println("WiFi Station mode setup done.");
+      Serial.println("WiFi Station mode setup done.\n");
+    }
+
+    void set_wifi_off_mode() {
+      WiFi.mode(WIFI_OFF);
     }
 
     // Scan and list all available access points
     void sniff_access_points() {
+      station_mode_wifi_setup();
+
       Serial.println("Scanning for networks...");
 
-      // int clients_num = WiFi.scanNetworks();
       detected_access_points_num = WiFi.scanNetworks();
-      Serial.println("Network scanning done.");
+      Serial.println("Network scanning done.\n");
+      set_wifi_off_mode();
 
       // list_access_points(clients_num);
       list_access_points(detected_access_points_num);
