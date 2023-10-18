@@ -1,6 +1,6 @@
 #include "ModeConfigurator.h"
 
-#define BAUD_RATE 9600
+#define BAUD_RATE 115200
 #define WIFI_LED 2
 #define SCROLLER_BTN D2
 #define CONFIRM_BTN D4
