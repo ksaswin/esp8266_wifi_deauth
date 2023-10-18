@@ -5,7 +5,8 @@ class Sniffer {
   private:
     // TODO: Also store all access points in a list
     int WIFI_LED;
-    int detected_access_points_num;
+    int detected_access_points_num = 0;
+    int aps_list_index = -1;
 
     // Returns the human readable encryption name
     String get_encryption_type_name(uint8_t encryptionType) {    
@@ -68,6 +69,10 @@ class Sniffer {
       WIFI_LED = led_pin;
     }
 
+    int get_detected_access_points_num() {
+      return detected_access_points_num;
+    }
+
     // Prints the access point info to the Serial monitor
     void list_access_points() {
       if (detected_access_points_num == 0) {
@@ -107,5 +112,37 @@ class Sniffer {
       set_wifi_off_mode();
 
       list_access_points();
+    }
+
+    // Scroll through Access Points
+    String scroll_to_next_access_point() {
+      if (detected_access_points_num == 0) {
+        aps_list_index = -1;
+
+        return "No access points";
+      }
+
+      if (aps_list_index == detected_access_points_num) {
+        aps_list_index = 0;
+      } else {
+        aps_list_index++;
+      }
+
+      if (aps_list_index == detected_access_points_num) {
+        return "Exit";
+      }
+
+      return WiFi.BSSIDstr(aps_list_index);
+    }
+
+    int confirm_ap_selection() {
+      if (aps_list_index == detected_access_points_num) {
+        return -1;
+      }
+
+      Serial.println("Confirming Access Point selection.");
+      Serial.println(WiFi.BSSIDstr(aps_list_index));
+
+      return 0;
     }
 };

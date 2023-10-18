@@ -22,13 +22,32 @@ void loop() {
   int scroller_button = digitalRead(SCROLLER_BTN);
   int confirm_button = digitalRead(CONFIRM_BTN);
 
+  if (mode_config.get_current_mode() == "SELECT_MODE" && mode_config.get_mode_index() == 1) {
+    if (confirm_button == 1) {
+      mode_config.confirm_ap_selection();
+
+      delay(100);
+      return;
+    }
+
+    if (scroller_button == 1) {
+      mode_config.scroll_ap_list();
+    }
+
+    delay(100);
+    return;
+  }
+
   if (confirm_button == 1) {
     mode_config.confirm_mode_action();
+
+    delay(100);
+    return;
   }
 
   if (scroller_button == 1) {
     mode_config.scroll_to_next_mode();
   }
 
-  delay(200);
+  delay(100);
 }
