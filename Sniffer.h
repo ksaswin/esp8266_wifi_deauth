@@ -105,5 +105,7 @@ class Sniffer {
       detected_access_points_num = WiFi.scanNetworks();
       Serial.println("Network scanning done.\n");
       set_wifi_off_mode();
+
+      list_access_points();
     }
 };
